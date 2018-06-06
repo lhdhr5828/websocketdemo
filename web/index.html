@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p>Get your greeting <a href="/greeting">here</a></p>
+<!--<form action="/upload" method="POST" enctype="multipart/form-data">
+    文件:<input type="file" name="test"/>
+    <input type="submit" />
+</form>
+ <a href="/download">下载test</a>
+<p>多文件上传</p>
+<form method="POST" enctype="multipart/form-data" action="/batch/upload">
+    <p>文件1:<input type="file" name="file" /></p>
+    <p>文件2:<input type="file" name="file" /></p>
+    <p><input type="submit" value="上传" /></p>
+</form>-->
+<div id="clientSuc">
+
+</div>
+</body>
+<script>
+var wsuri = "ws://127.0.0.1:8080/entry";
+var ws = null;
+
+function dows() {
+        //判断浏览器是否支持websocket
+    if("WebSocket" in window || window.WebSocket) {
+        ws = new WebSocket(wsuri);
+    } else {
+        alert("browser not support websocket...");
+//        throw "browser not support websocket..."; //这种写法是可以的
+        throw new Error("browser not support websocket...");//这种也是可以
+        return false
+    }
+    ws.onopen = function(evt) {
+        wsObj.wsopen(evt);
+    }
+    ws.onmessage = function(evt) {
+        wsObj.wsmsg(evt);
+    }
+    ws.onclose = function(evt) {
+        wsObj.wsclose(evt);
+    }
+    ws.onerror = function(evt) {
+        wsObj.wserror(evt);
+    }
+    /*ws.send("my message...");*/
+}
+
+var wsObj = {
+    wsopen:function(evt) {
+        console.log(evt.type);
+        document.querySelector("#clientSuc").innerHTML = "websocket connect success...";
+    },
+    wsmsg:function(msg) {
+        debugger;
+        console.log("type:"+msg.type);
+        //document.getElementById("msg").innerHTML = msg.data;
+        console.log("data:" + msg.data);
+        document.querySelector("#msg").innerHTML = msg.data;
+//        ws.close(); //关闭websocket
+    },
+    wsclose:function(evt) {
+        console.log("type:" + evt.type);
+    },
+    wserror:function(evt) {
+        console.log("type:" + evt.type);
+    }
+};
+function sendMsg (){
+    var msg = "hello websocket...";
+    ws.send(msg);
+}
+function closeWebsocket() {
+    ws.close();
+}
+
+window.addEventListener("load", dows, false);
+</script>
+</html>

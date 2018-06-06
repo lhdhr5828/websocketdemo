@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="socketdemo:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/socketdemo_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="socketdemo/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="socketdemo" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="D:/tools/tomcat/apache-tomcat-8.5.30/lib/websocket-api.jar" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>
