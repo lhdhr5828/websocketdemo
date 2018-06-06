@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>Getting Started: WebSocket</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
@@ -17,14 +17,19 @@
     <p>文件2:<input type="file" name="file" /></p>
     <p><input type="submit" value="上传" /></p>
 </form>-->
+<button id="sendMessage" onclick="sendMsg()">send</button>
+<button id="close" onclick="closeWebsocket()">close</button>
 <div id="clientSuc">
+
+</div>
+<div id="msg">
 
 </div>
 </body>
 <script>
 var wsuri = "ws://127.0.0.1:8080/entry";
 var ws = null;
-
+//页面加载后执行
 function dows() {
         //判断浏览器是否支持websocket
     if("WebSocket" in window || window.WebSocket) {
@@ -35,6 +40,7 @@ function dows() {
         throw new Error("browser not support websocket...");//这种也是可以
         return false
     }
+
     ws.onopen = function(evt) {
         wsObj.wsopen(evt);
     }
